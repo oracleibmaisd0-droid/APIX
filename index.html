@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="es">    
+<head>    
+  <meta charset="UTF-8" />    
+  <meta name="viewport" content="width=device-width, initial-scale=1" />    
+      
+  <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">    
+  <style>    
+    :root {    
+      --bg: 15 18 25;    
+      --ink: 235 238 245;    
+    }    
+    * { box-sizing: border-box; }    
+    html, body {    
+      height: 100%;    
+      margin: 0;    
+      font: 500 16px/1.4 'Lato', sans-serif;    
+      color: rgb(var(--ink));    
+      overflow-x: hidden;     
+    }    
+
+    body {    
+      display: flex;    
+      flex-direction: column;    
+      min-height: 100vh;    
+      background: radial-gradient(1200px 700px at 15% 10%, rgba(99,102,241,.22), transparent 60%),    
+                  radial-gradient(900px 600px at 85% 0%, rgba(34,197,94,.20), transparent 60%),    
+                  radial-gradient(1000px 700px at 50% 100%, rgba(56,189,248,.20), transparent 55%),    
+                  linear-gradient(180deg, rgb(7 9 14), rgb(12 14 22));    
+      background-attachment: fixed;    
+      padding-top: 0;  
+    }    
+
+    /* CABECERA TRANSLÚCIDA CON HALO */
+    .glass-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 150px;
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      backdrop-filter: blur(12px) saturate(150%);
+      -webkit-backdrop-filter: blur(12px) saturate(150%);
+      background: rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      z-index: 1000;
+      opacity: 0;
+      transform: translateY(-40px);
+      animation: fadeDown 0.8s forwards ease-out;
+      overflow: hidden; 
+    }
+
+    @keyframes fadeDown { to { opacity: 1; transform: translateY(0); } }
+
+    .glass-header .brand {
+      position: absolute; 
+      top: 8px; 
+      left: 16px; 
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    .glass-header .title {
+      margin: 0 auto; 
+      font-size: 1.7rem; 
+      text-align: center;
+      font-weight: 600;
+      letter-spacing: 2px;
+    }
+
+    .glass-header::before,
+    #footer::before {
+      content: '';
+      position: absolute;
+      top: -50%; left: -50%; right: -50%; bottom: -50%; 
+      background: radial-gradient(200px 200px at var(--mx,50%) var(--my,50%), rgba(255,255,255,0.6), rgba(255,255,255,0) 60%);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.18s ease;
+      filter: blur(16px);
+      z-index: 0;
+    }
+    .glass-header.is-hot::before,
+    #footer.is-hot::before { opacity: 1; }
+
+    /* CONTENIDO */    
+    main { 
+      flex-grow: 1; 
+      display: flex; 
+      justify-content: center; 
+      align-items: center; 
+      margin-top: 100px; 
+    }    
+
+    /* CUADRÍCULA DE BOTONES */
+    .buttons-container { 
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      justify-items: center;
+      gap: 24px;
+      padding: 64px 16px;
+      width: 100%;
+      max-width: 800px;
+    }
+
+    /* BOTONES REDONDOS */
+    .custom-btn {    
+      width: 80px;    
+      height: 80px;    
+      border-radius: 50%;    
+      cursor: pointer;    
+      outline: none;    
+      border: none;    
+      background: rgba(255,255,255,0.1);    
+      display: flex;    
+      justify-content: center;    
+      align-items: center;    
+      transform: scale(0);
+    }    
+
+    /* CONTENIDO DEL BOTÓN */
+    .btn-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 60px;
+      height: 60px;
+      transform: scale(0);
+    }
+
+    /* POP BOTÓN */
+    @keyframes popBtn {
+      0% { transform: scale(0); }
+      60% { transform: scale(1.15); }
+      100% { transform: scale(1); }
+    }
+
+    /* POP CONTENIDO */
+    @keyframes popContent {
+      0% { transform: scale(0); opacity: 0; }
+      60% { transform: scale(1.2); opacity: 1; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    /* FOOTER */    
+    #footer {
+      margin-top: auto; 
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px 20px;
+      min-height: 80px;
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(12px) saturate(150%);
+      -webkit-backdrop-filter: blur(12px) saturate(150%);
+      border-top: 1px solid rgba(255,255,255,0.2);
+      font-size: 0.9rem;
+      opacity: 0;
+      transform: translateY(40px);
+      animation: fadeUp 0.8s forwards ease-out;
+      animation-delay: 0.3s;
+      position: relative;
+      overflow: hidden; 
+      text-align: center;
+    }
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+  </style>    
+</head>    
+<body>    
+  <!-- CABECERA -->    
+  <header class="glass-header" id="cabecera" aria-label="Cabecera translúcida con luz reactiva">    
+    <div class="brand">Oracle System</div>    
+    <div class="title">Aplicaciones Web by Oracle</div>    
+  </header>    
+  
+  <!-- CONTENIDO BOTONES -->    
+  <main>    
+    <div class="buttons-container">    
+      
+      <!-- Temporizador -->
+      
+      <button class="custom-btn" data-url="" title="Temporizador">
+    <div class="btn-content">
+<script src="https://animatedicons.co/scripts/embed-animated-icons.js"></script>
+<animated-icons
+  src="https://animatedicons.co/get-icon?name=time&style=minimalistic&token=457c3e19-27d2-4e71-9f69-58f140e78e09"
+  trigger="hover"
+  attributes='{"variationThumbColour":"#FFFFFF","variationName":"Normal","variationNumber":1,"numberOfGroups":1,"backgroundIsGroup":false,"strokeWidth":2.5,"defaultColours":{"group-1":"#FFFFFFFF","background":"#FFFFFF00"}}'
+  height="60"
+  width="60"
+></animated-icons>
+        </div>
+      </button>
+      
+      <button class="custom-btn" data-url="" title="Pitido marcha atrás Cervi marca Hyster">
+      <div class="btn-content">
+<script src="https://animatedicons.co/scripts/embed-animated-icons.js"></script>
+<animated-icons
+  src="https://animatedicons.co/get-icon?name=Unmute%20V3&style=minimalistic&token=454afbc2-12fd-492b-9b69-6f0e6132f331"
+  trigger="hover"
+  attributes='{"variationThumbColour":"#FFFFFF","variationName":"Normal","variationNumber":1,"numberOfGroups":1,"backgroundIsGroup":false,"strokeWidth":2.5,"defaultColours":{"group-1":"#FFFFFFFF","background":"#FFFFFF00"}}'
+  height="60"
+  width="60"
+></animated-icons>
+      </div></button>      
+
+<!--
+      <button class="custom-btn" data-url="" title="">
+      <div class="btn-content">
+      </div></button>
+-->
+    </div>    
+  </main>    
+  
+  <!-- FOOTER -->    
+  <footer id="footer">    
+    &copy; 2025 Oracle Quantum. Powered by Oracle. – Todos los derechos reservados.
+  </footer>    
+  
+  <!-- SCRIPTS -->    
+  <script>
+    // POP SUAVE AL CARGAR LA PÁGINA
+    window.addEventListener('load', () => {
+      const buttons = document.querySelectorAll('.custom-btn');
+      buttons.forEach((btn, index) => {
+        const content = btn.querySelector('.btn-content');
+        // POP del botón
+        setTimeout(() => {
+          btn.style.animation = 'popBtn 0.6s cubic-bezier(0.25, 1.5, 0.5, 1) forwards';
+        }, index * 150); // cada uno con delay
+        // POP del contenido después de 1s
+        setTimeout(() => {
+          if(content) content.style.animation = 'popContent 0.7s cubic-bezier(0.25, 1.5, 0.5, 1) forwards';
+        }, 1000 + index * 150);
+      });
+    });
+
+    // REDIRECCIÓN CON RETARDO
+    document.addEventListener('click', function(e) {
+      const btn = e.target.closest('.custom-btn'); 
+      if (!btn) return;
+      const url = btn.dataset.url;
+      if (!url) return;
+      e.preventDefault();
+      setTimeout(() => { window.location.href = url; }, 2000);
+    });
+
+    // HALO DE LUZ
+    function bindHalo(el){
+      if(!el) return;
+      el.addEventListener('pointermove', e => {
+        const rect = el.getBoundingClientRect();
+        const x = ((e.clientX - rect.left)/rect.width)*100;
+        const y = ((e.clientY - rect.top)/rect.height)*100;
+        el.style.setProperty('--mx', x+'%');
+        el.style.setProperty('--my', y+'%');
+        el.classList.add('is-hot');
+      });
+      el.addEventListener('pointerleave', ()=>el.classList.remove('is-hot'));
+      el.addEventListener('touchmove', e=>{
+        const t = e.touches[0];
+        const rect = el.getBoundingClientRect();
+        const x = ((t.clientX - rect.left)/rect.width)*100;
+        const y = ((t.clientY - rect.top)/rect.height)*100;
+        el.style.setProperty('--mx', x+'%');
+        el.style.setProperty('--my', y+'%');
+        el.classList.add('is-hot');
+      }, {passive:true});
+      el.addEventListener('touchend', ()=>el.classList.remove('is-hot'));
+    }
+    bindHalo(document.getElementById('cabecera'));
+    bindHalo(document.getElementById('footer'));
+  </script>  
+</body>  
+</html>

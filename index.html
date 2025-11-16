@@ -211,7 +211,7 @@
 <animated-icons
   src="https://animatedicons.co/get-icon?name=Palette&style=minimalistic&token=6defc96c-bfac-4d99-bc45-98649e19863b"
   trigger="hover"
-  attributes='{"variationThumbColour":"#FFFFFF","variationName":"Normal","variationNumber":1,"numberOfGroups":1,"backgroundIsGroup":false,"strokeWidth":2.5,"defaultColours":{"group-1":"#FFFFFFFF","background":"#00000000"}}'
+  attributes='{"variationThumbColour":"#FFFFFF","variationName":"Normal","variationNumber":1,"numberOfGroups":1,"backgroundIsGroup":false,"strokeWidth":2.5,"defaultColours":{"group-1":"#FFFFFF","background":"#00000000"}}'
   height="60"
   width="60"
 ></animated-icons>
@@ -296,5 +296,56 @@
     bindHalo(document.getElementById('cabecera'));
     bindHalo(document.getElementById('footer'));
   </script>  
+  
+  
+  <script>
+  // Array de iconos con fecha límite color rojo.
+  const iconosFechas = [
+    {
+      title: "Temporizador",             // El title del botón que identifica el icono
+      fechaLimite: new Date(2025, 11), // 20 noviembre 2025
+      colorAntes: "#FF0000",             // Color antes de la fecha
+      colorDespues: "#FFFFFF"            // Color después de la fecha
+    },
+    {
+      title: "Pitido marcha atrás Cervi marca Hyster",
+      fechaLimite: new Date(2025, 11),
+      colorAntes: "#FF0000",
+      colorDespues: "#FFFFFF"
+    },
+    {
+      title: "Linterna Color Screen",
+      fechaLimite: new Date(2025, 11),
+      colorAntes: "#FF0000",
+      colorDespues: "#FFFFFF"
+    },
+    {
+      title: "Alarma Antirrobo Modificable",
+      fechaLimite: new Date(2025, 11),
+      colorAntes: "#FF0000",
+      colorDespues: "#FFFFFF"
+    }
+
+    // ================================
+    // Añadir más
+  ];
+
+  const hoy = new Date();
+
+  iconosFechas.forEach(cfg => {
+    const btn = Array.from(document.querySelectorAll('.custom-btn'))
+                     .find(b => b.title.trim() === cfg.title);
+    if(!btn) return;
+    const icon = btn.querySelector('animated-icons');
+    if(!icon) return;
+
+    const color = hoy < cfg.fechaLimite ? cfg.colorAntes : cfg.colorDespues;
+
+    icon.setAttribute('attributes', JSON.stringify({
+      ...JSON.parse(icon.getAttribute('attributes')),
+      defaultColours: { "group-1": color, "background": "#FFFFFF00" }
+    }));
+  });
+</script>
 </body>  
 </html>

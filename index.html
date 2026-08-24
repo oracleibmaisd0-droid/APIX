@@ -222,6 +222,66 @@
       text-align: center;
     }
     @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+ 
+ 
+ /* ===============================
+   INDICADOR DE NOVEDAD POR TITLE
+   =============================== */
+
+.custom-btn {
+    position: relative !important;
+}
+
+.punto-novedad {
+    position: absolute !important;
+
+    width: 8px !important;
+    height: 8px !important;
+
+    min-width: 8px !important;
+    min-height: 8px !important;
+
+    padding: 0 !important;
+    margin: 0 !important;
+
+    border: 0 !important;
+    border-radius: 50% !important;
+
+    top: 3px !important;
+    right: 3px !important;
+
+    display: block !important;
+
+    pointer-events: none !important;
+
+    z-index: 9999 !important;
+
+    box-sizing: border-box !important;
+}
+
+.punto-novedad {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+
+  animation: puntoNovedad 1.5s ease-in-out infinite;
+
+  box-shadow:
+    0 0 6px rgba(255,255,255,.8),
+    0 0 12px currentColor;
+}
+
+@keyframes puntoNovedad {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.35);
+    opacity: .65;
+  }
+}
   </style>    
 </head>    
 <body>
@@ -548,5 +608,133 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   </script>
 
+
+<script>
+
+/*
+==================================================
+    🔴🟢🔵 INDICADORES DE NOVEDAD POR TITLE
+================================================== */
+
+
+marcarTitle("Temporizador", "#ff0000", "01/01/2026");
+marcarTitle("Pitido marcha atrás Cervi marca Hyster", "#ff0000", "01/01/2026");
+marcarTitle("Linterna Color Screen", "#ff0000", "01/01/2026");
+marcarTitle("Alarma Antirrobo Modificable", "#ff0000", "01/01/2026");
+
+
+/*
+==================================================
+    FUNCIÓN
+==================================================
+*/
+
+function marcarTitle(titleBuscado, color, fechaCaducidad) {
+
+    /*
+    ----------------------------------------------
+    COMPROBAR FECHA
+    ----------------------------------------------
+    */
+
+    if (fechaCaducidad) {
+
+        const partes = fechaCaducidad.split("/");
+
+        const dia = parseInt(partes[0], 10);
+        const mes = parseInt(partes[1], 10) - 1;
+        const año = parseInt(partes[2], 10);
+
+
+
+        const caducidad = new Date(
+            año,
+            mes,
+            dia + 1,
+            0,
+            0,
+            0
+        );
+
+        const ahora = new Date();
+
+        if (ahora >= caducidad) {
+            return;
+        }
+    }
+
+
+    /*
+    ----------------------------------------------
+    BUSCAR TODOS LOS ELEMENTOS CON TITLE
+    ----------------------------------------------
+    */
+
+    const elementos = document.querySelectorAll("[title]");
+
+
+    /*
+    ----------------------------------------------
+    BUSCAR EL TITLE EXACTO
+    ----------------------------------------------
+    */
+
+    elementos.forEach(elemento => {
+
+        const title = elemento.getAttribute("title");
+
+        if (!title) {
+            return;
+        }
+
+        /*
+        Comparación exacta ignorando mayúsculas.
+        */
+
+        if (
+            title.trim().toLowerCase() !==
+            titleBuscado.trim().toLowerCase()
+        ) {
+            return;
+        }
+
+
+        /*
+        ------------------------------------------
+        EVITAR DUPLICADOS
+        ------------------------------------------
+        */
+
+        if (elemento.querySelector(".punto-novedad")) {
+            return;
+        }
+
+
+        /*
+        ------------------------------------------
+        CREAR PUNTO
+        ------------------------------------------
+        */
+
+        const punto = document.createElement("span");
+
+        punto.className = "punto-novedad";
+
+        punto.style.backgroundColor = color;
+
+
+        /*
+        ------------------------------------------
+        AÑADIR DIRECTAMENTE AL BOTÓN
+        ------------------------------------------
+        */
+
+        elemento.appendChild(punto);
+
+    });
+
+}
+
+</script>
 </body>  
 </html>

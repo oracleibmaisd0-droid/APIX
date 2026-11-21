@@ -736,5 +736,39 @@ function marcarTitle(titleBuscado, color, fechaCaducidad) {
 }
 
 </script>
+
+
+<script type="module">
+  import {
+    glass,
+    attachPress
+  } from "https://cdn.jsdelivr.net/npm/glassy-liquid@0.1.0/+esm";
+
+  window.addEventListener("load", () => {
+
+    const botones = document.querySelectorAll(".custom-btn");
+
+    // Esperar a que termine la animación de entrada
+    setTimeout(() => {
+
+      botones.forEach(boton => {
+
+        const superficie = glass(boton, {
+          radius: "circle",
+          material: "clear",
+          appearance: "dark",
+          refraction: 18
+        });
+
+        attachPress(boton, superficie);
+
+      });
+
+    }, 1200);
+
+  });
+</script>
+
+
 </body>  
 </html>

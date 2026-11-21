@@ -282,6 +282,14 @@
     opacity: .65;
   }
 }
+
+glass-button{
+  touch-action: none !important;
+  -webkit-user-select: none !important;
+  user-select: none !important;
+  -webkit-touch-callout: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
   </style>    
 </head>    
 <body>
@@ -389,7 +397,7 @@
     <div class="buttons-container">    
       
       
-      <button class="custom-btn" data-url="https://oraclewebapitimer.netlify.app" title="Temporizador">
+      <glass-button class="custom-btn" data-url="https://oraclewebapitimer.netlify.app" title="Temporizador" material="clear">
     <div class="btn-content">
 <script src="https://animatedicons.co/scripts/embed-animated-icons.js"></script>
 <animated-icons
@@ -400,9 +408,9 @@
   width="60"
 ></animated-icons>
         </div>
-      </button>
+      </glass-button>
       
-      <button class="custom-btn" data-url="https://oraclewebapihyster.netlify.app" title="Pitido marcha atrás Cervi marca Hyster">
+      <glass-button class="custom-btn" data-url="https://oraclewebapihyster.netlify.app" title="Pitido marcha atrás Cervi marca Hyster" material="clear">
       <div class="btn-content">
 <script src="https://animatedicons.co/scripts/embed-animated-icons.js"></script>
 <animated-icons
@@ -412,9 +420,9 @@
   height="60"
   width="60"
 ></animated-icons>
-      </div></button>      
+      </div></glass-button>      
       
-      <button class="custom-btn" data-url="https://oraclewebapicolor.netlify.app" title="Linterna Color Screen">
+      <glass-button class="custom-btn" data-url="https://oraclewebapicolor.netlify.app" title="Linterna Color Screen" material="clear">
       <div class="btn-content">
           <script src="https://animatedicons.co/scripts/embed-animated-icons.js"></script>
 <animated-icons
@@ -424,9 +432,9 @@
   height="60"
   width="60"
 ></animated-icons>
-      </div></button>
+      </div></glass-button>
       
-      <button class="custom-btn" data-url="https://oraclewebapialarm.netlify.app" title="Alarma Antirrobo Modificable">
+      <glass-button class="custom-btn" data-url="https://oraclewebapialarm.netlify.app" title="Alarma Antirrobo Modificable" material="clear">
       <div class="btn-content">
           <script src="https://animatedicons.co/scripts/embed-animated-icons.js"></script>
 <animated-icons
@@ -436,7 +444,7 @@
   height="60"
   width="60"
 ></animated-icons>
-      </div></button>
+      </div></glass-button>
 
 <!--
       <button class="custom-btn" data-url="" title="">
@@ -769,6 +777,10 @@ function marcarTitle(titleBuscado, color, fechaCaducidad) {
   });
 </script>
 
+<script
+  type="module"
+  src="https://cdn.jsdelivr.net/npm/glassy-liquid@0.1/dist/glassy-liquid.min.js">
+</script>
 
 </body>  
 </html>
